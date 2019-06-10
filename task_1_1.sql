@@ -1,8 +1,9 @@
 -- # запускаю такой скрипт
-CREATE DATABASE IF NOT EXISTS example;
+DROP DATABASE IF EXISTS example;
+CREATE DATABASE example;
 USE example;
-CREATE TABLE IF NOT EXISTS users (
-id INT NOT NULL PRIMARY KEY, 
+CREATE TABLE users (
+id INT NOT NULL , 
 name VARCHAR(30) NOT NULL);
 --# несколько записей для наглядности
 INSERT INTO users VALUES(001, 'John Doe');
