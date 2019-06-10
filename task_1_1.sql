@@ -1,26 +1,26 @@
--- # запускаю такой скрипт
+-- # Р·Р°РїСѓСЃРєР°СЋ С‚Р°РєРѕР№ СЃРєСЂРёРїС‚
 CREATE DATABASE IF NOT EXISTS example;
 USE example;
 CREATE TABLE IF NOT EXISTS users (
 id INT NOT NULL PRIMARY KEY, 
 name VARCHAR(30) NOT NULL);
---# несколько записей для наглядности
+--# РЅРµСЃРєРѕР»СЊРєРѕ Р·Р°РїРёСЃРµР№ РґР»СЏ РЅР°РіР»СЏРґРЅРѕСЃС‚Рё
 INSERT INTO users VALUES(001, 'John Doe');
 INSERT INTO users VALUES(002, 'Chris White');
 INSERT INTO users VALUES(003, 'Sam Smith');
 SELECT * FROM users;
 quit
--- # это уже делаю в консоли
+-- # СЌС‚Рѕ СѓР¶Рµ РґРµР»Р°СЋ РІ РєРѕРЅСЃРѕР»Рё
 mysqldump example > dump_example.sql;
---# запускаю утилиту mysql
+--# Р·Р°РїСѓСЃРєР°СЋ СѓС‚РёР»РёС‚Сѓ mysql
 mysql
---# cоздаю новую БД sample
+--# cРѕР·РґР°СЋ РЅРѕРІСѓСЋ Р‘Р” sample
 CREATE DATABASE IF NOT EXISTS sample;
---# выхожу из mysql
+--# РІС‹С…РѕР¶Сѓ РёР· mysql
 quit
---# разворачиваю туда дамп
+--# СЂР°Р·РІРѕСЂР°С‡РёРІР°СЋ РІ sample РґР°РјРї
 mysql sample < dump_example.sql;
---# делаю дамп таблицы help_keyword из mysql
+--# РґРµР»Р°СЋ РґР°РјРї С‚Р°Р±Р»РёС†С‹ help_keyword РёР· mysql
 mysqldump mysql help_keyword --where="true limit 100"> help_100.sql
---# смотрю что получилось
+--# СЃРјРѕС‚СЂСЋ С‡С‚Рѕ РїРѕР»СѓС‡РёР»РѕСЃСЊ
 cat help_100.sql
