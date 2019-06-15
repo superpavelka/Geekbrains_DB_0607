@@ -105,10 +105,16 @@ CREATE TABLE storehouses_products (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) COMMENT = 'Запасы на складе';
-/*Пусть в таблице users поля created_at и updated_at оказались незаполненными. Заполните их текущими датой и временем.*/
-SELECT * FROM users;
-UPDATE users SET created_at=NULL,updated_at=NULL;
-SELECT * FROM users;
-UPDATE users SET created_at=NOW() WHERE created_at IS NULL;
-UPDATE users SET updated_at=NOW() WHERE updated_at IS NULL;
-SELECT * FROM users;
+
+INSERT INTO storehouses_products
+  (storehouse_id, product_id, value)
+VALUES
+  ('001', '001', 250),
+  ('002', '003', 300),
+  ('001', '002', 0),
+  ('003', '002', 0),
+  ('002', '002',100);
+(SELECT * FROM storehouses_products WHERE value <> 0 ORDER BY value)
+UNION ALL
+(SELECT * FROM storehouses_products WHERE value = 0);
+
