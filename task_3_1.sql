@@ -19,7 +19,7 @@ CREATE TABLE users (
   birthday_at DATE COMMENT 'Дата рождения',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) COMMENT = 'Покупатели';
+) COMMENT = 'Покупатели';	
 
 INSERT INTO users (name, birthday_at) VALUES
   ('Геннадий', '1990-10-05'),
@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS products;
 CREATE TABLE products (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) COMMENT 'Название',
-  desription TEXT COMMENT 'Описание',
+  description TEXT COMMENT 'Описание',
   price DECIMAL (11,2) COMMENT 'Цена',
   catalog_id INT UNSIGNED,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -102,3 +102,10 @@ CREATE TABLE storehouses_products (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) COMMENT = 'Запасы на складе';
+/*Пусть в таблице users поля created_at и updated_at оказались незаполненными. Заполните их текущими датой и временем.*/
+SELECT * FROM users;
+UPDATE users SET created_at=NULL,updated_at=NULL;
+SELECT * FROM users;
+UPDATE users SET created_at=NOW() WHERE created_at IS NULL;
+UPDATE users SET updated_at=NOW() WHERE updated_at IS NULL;
+SELECT * FROM users;

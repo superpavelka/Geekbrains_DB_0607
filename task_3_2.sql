@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS shop;
+CREATE DATABASE shop;
+USE shop;
 DROP TABLE IF EXISTS catalogs;
 CREATE TABLE catalogs (
   id SERIAL PRIMARY KEY,
@@ -17,23 +20,25 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) COMMENT 'Имя покупателя',
   birthday_at DATE COMMENT 'Дата рождения',
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  created_at VARCHAR(16) ,
+  updated_at VARCHAR(16) ,
+  created_at_d DATETIME DEFAULT NULL ,
+  updated_at_d DATETIME DEFAULT NULL 
 ) COMMENT = 'Покупатели';
 
-INSERT INTO users (name, birthday_at) VALUES
-  ('Геннадий', '1990-10-05'),
-  ('Наталья', '1984-11-12'),
-  ('Александр', '1985-05-20'),
-  ('Сергей', '1988-02-14'),
-  ('Иван', '1998-01-12'),
-  ('Мария', '1992-08-29');
+INSERT INTO users (name, birthday_at, created_at, updated_at) VALUES
+  ('Геннадий', '1990-10-05', '20.10.2017 08:10', '20.10.2017 8:10'),
+  ('Наталья', '1984-11-12', '20.10.2017 08:10', '20.10.2017 8:10'),
+  ('Александр', '1985-05-20', '20.10.2017 08:10', '20.10.2017 8:10'),
+  ('Сергей', '1988-02-14', '20.10.2017 08:10', '20.10.2017 8:10'),
+  ('Иван', '1998-01-12', '20.10.2017 08:10', '20.10.2017 8:10'),
+  ('Мария', '1992-08-29', '20.10.2017 08:10', '20.10.2017 8:10');
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) COMMENT 'Название',
-  desription TEXT COMMENT 'Описание',
+  description TEXT COMMENT 'Описание',
   price DECIMAL (11,2) COMMENT 'Цена',
   catalog_id INT UNSIGNED,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -102,3 +107,7 @@ CREATE TABLE storehouses_products (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) COMMENT = 'Запасы на складе';
+SELECT * FROM users;
+UPDATE users SET created_at_d = STR_TO_DATE(created_at, '%d.%m.%Y %H:%i');
+UPDATE users SET updated_at_d = STR_TO_DATE(updated_at, '%d.%m.%Y %H:%i');
+SELECT * FROM users;
