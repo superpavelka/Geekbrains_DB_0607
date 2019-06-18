@@ -107,6 +107,11 @@ CREATE TABLE storehouses_products (
 ) COMMENT = 'Запасы на складе';
 /*Подсчитайте средний возраст пользователей в таблице users*/
 SELECT * FROM users;
-SELECT AVG( TIMESTAMPDIFF( YEAR , users.birthday_at, NOW())) as YEAR  from users
+SELECT AVG( TIMESTAMPDIFF( YEAR , users.birthday_at, NOW())) AS YEAR  FROM users;
 /*Подсчитайте количество дней рождения, которые приходятся на каждую из дней недели.
- * Следует учесть, что необходимы дни недели текущего года а не года рождения. */
+  Следует учесть, что необходимы дни недели текущего года а не года рождения. */
+SELECT
+DAYNAME(DATE_FORMAT(DATE_ADD(birthday_at, INTERVAL (YEAR(CURRENT_DATE()) - YEAR(birthday_at)) YEAR), '%Y-%m-%d')) AS DAYS,
+COUNT(*) as count
+FROM users
+GROUP BY DAYNAME(DATE_FORMAT(DATE_ADD(birthday_at, INTERVAL (YEAR(CURRENT_DATE()) - YEAR(birthday_at)) YEAR), '%Y-%m-%d'));
