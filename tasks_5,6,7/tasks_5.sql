@@ -139,4 +139,7 @@ FROM orders
 GROUP BY user_id
 ORDER BY users.name;
 -- Выведите список товаров products и разделов catalogs, который соответствует товару.
-
+SELECT products.id, products.name, catalog_id, catalogs.name
+FROM products
+         LEFT JOIN catalogs 
+         ON products.catalog_id = catalogs.id;
