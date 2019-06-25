@@ -68,3 +68,15 @@ SET dates.equal = 1
 WHERE dates.created_at = tbl_august.created_at;
 
 SELECT * FROM dates;
+-- (по желанию) Пусть имеется любая таблица с календарным полем created_at. 
+-- Создайте запрос, который удаляет устаревшие записи из таблицы, оставляя только 5 самых свежих записей.
+DELETE d1 FROM dates d1
+         LEFT JOIN
+         (
+         SELECT id FROM dates
+         ORDER BY created_at DESC
+         LIMIT 5
+         ) d2
+    ON d1.id = d2.id
+	WHERE d2.id IS NULL;
+SELECT * FROM dates;
