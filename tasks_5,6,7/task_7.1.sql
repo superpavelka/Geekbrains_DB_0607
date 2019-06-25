@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS shop;
+CREATE DATABASE shop;
+USE shop;
 DROP TABLE IF EXISTS catalogs;
 CREATE TABLE catalogs (
   id SERIAL PRIMARY KEY,
@@ -33,7 +36,7 @@ DROP TABLE IF EXISTS products;
 CREATE TABLE products (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) COMMENT 'Название',
-  desription TEXT COMMENT 'Описание',
+  description TEXT COMMENT 'Описание',
   price DECIMAL (11,2) COMMENT 'Цена',
   catalog_id INT UNSIGNED,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -102,3 +105,18 @@ CREATE TABLE storehouses_products (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) COMMENT = 'Запасы на складе';
+
+-- Создайте двух пользователей которые имеют доступ к базе данных shop. 
+-- Первому пользователю shop_read должны быть доступны только запросы на чтение данных, 
+-- второму пользователю shop — любые операции в пределах базы данных shop.
+
+DROP USER IF EXISTS 'shop_read'@'localhost';
+DROP USER IF EXISTS 'shop'@'localhost';
+
+CREATE USER 'shop_read'@'localhost' IDENTIFIED BY '=!=npuBETMuP=!=';
+CREATE USER 'shop'@'localhost' IDENTIFIED BY '!=!helloWORLD!=!';
+
+GRANT SELECT ON shop.* TO shop_read;
+GRANT ALL ON shop.* to shop;
+SHOW GRANTS FOR 'shop_read';
+SHOW GRANTS FOR 'shop';
