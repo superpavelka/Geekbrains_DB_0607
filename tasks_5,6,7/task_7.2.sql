@@ -22,5 +22,5 @@ CREATE VIEW username AS
 DROP USER IF EXISTS 'user_read'@'localhost';
 CREATE USER 'user_read'@'localhost' IDENTIFIED BY '=!=npuBETMuP=!=';
 
-GRANT USAGE ON *.* TO user_read;
-GRANT SELECT ON users_accounts.username TO user_read;
+GRANT USAGE ON *.* TO 'user_read'@'localhost';
+GRANT SELECT ON users_accounts.username TO 'user_read'@'localhost';

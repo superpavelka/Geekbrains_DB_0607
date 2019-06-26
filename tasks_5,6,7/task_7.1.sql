@@ -116,7 +116,7 @@ DROP USER IF EXISTS 'shop'@'localhost';
 CREATE USER 'shop_read'@'localhost' IDENTIFIED BY '=!=npuBETMuP=!=';
 CREATE USER 'shop'@'localhost' IDENTIFIED BY '!=!helloWORLD!=!';
 
-GRANT SELECT ON shop.* TO shop_read;
-GRANT ALL ON shop.* to shop;
-SHOW GRANTS FOR 'shop_read';
-SHOW GRANTS FOR 'shop';
+GRANT SELECT ON shop.* TO 'shop_read'@'localhost';
+GRANT ALL ON shop.* TO 'shop'@'localhost';
+SHOW GRANTS FOR 'shop_read'@'localhost';
+SHOW GRANTS FOR 'shop'@'localhost';
