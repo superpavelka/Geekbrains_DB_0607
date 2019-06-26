@@ -24,3 +24,12 @@ CREATE USER 'user_read'@'localhost' IDENTIFIED BY '=!=npuBETMuP=!=';
 
 GRANT USAGE ON *.* TO 'user_read'@'localhost';
 GRANT SELECT ON users_accounts.username TO 'user_read'@'localhost';
+
+SHOW GRANTS FOR 'user_read'@'localhost';
+
+-- mysql> USE users_accounts;
+-- Database changed
+-- mysql> select * from accounts;
+-- ERROR 1142 (42000): SELECT command denied to user 'user_read'@'localhost' for table 'accounts'
+-- mysql> select * from username;
+-- Empty set (0.03 sec)
