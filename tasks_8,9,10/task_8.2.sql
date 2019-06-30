@@ -2,7 +2,9 @@
 -- Допустимо присутствие обоих полей или одно из них. Ситуация, когда оба поля принимают неопределенное 
 -- значение NULL неприемлема. Используя триггеры, добейтесь того, чтобы одно из этих полей или оба поля были заполнены. 
 -- При попытке присвоить полям NULL-значение необходимо отменить операцию.
-
+DROP DATABASE IF EXISTS shop;
+CREATE DATABASE shop;
+USE shop;
 DROP TABLE IF EXISTS catalogs;
 CREATE TABLE catalogs (
   id SERIAL PRIMARY KEY,
