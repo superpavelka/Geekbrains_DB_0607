@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS product_types;
 CREATE TABLE product_types 
 (
   id_product_type SERIAL PRIMARY KEY,
-  color TEXT COMMENT 'color name'
+  product_type TEXT COMMENT 'color name'
 );
 
 DROP TABLE IF EXISTS manufacturers;
