@@ -37,5 +37,15 @@ SELECT product_types_products.product_type_name, manufacturers.name, sizes.`size
   	JOIN sizes
   ON product_types_products.manufacturer = manufacturers.id_manufacturer
     WHERE (sizes.`size` = 'L') AND (product_types_products.product_type_name = 'T-shirts') AND (manufacturers.name = 'Baon');
- 
+
+-- Пример вложенного запроса
+-- Показать Id продукта, описание и цвет, сортировка по ID продукта  
+SELECT desc_color.id_product, desc_color.description, colors.color
+FROM
+(SELECT products.id_product, products.description, products_colors_sizes.color,products.product_group
+FROM products, products_colors_sizes
+WHERE products.id_product = products_colors_sizes.product) desc_color, colors
+WHERE desc_color.color = colors.id_color
+ORDER BY desc_color.id_product;
+
 
