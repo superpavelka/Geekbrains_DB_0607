@@ -52,7 +52,7 @@ ORDER BY desc_color.id_product;
 START TRANSACTION;
 
 INSERT INTO products (product_type,product_group,manufacturer,description)
-  VALUES (9, 10, 13, 'new_collection 2019');
+  VALUES (9, 1, 13, 'new_collection 2019');
 
 SELECT @last_user_id := (SELECT MAX(id_product) FROM products);
 
