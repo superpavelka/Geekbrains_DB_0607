@@ -1,5 +1,10 @@
 USE clothing_store;
 
+-- Показать сколько позиций товара было продано и сколько стоит одна позиция такого товара по номеру магазина
+SELECT sales.amount , products_colors_sizes_prices.price_in_rub
+FROM sales, products_colors_sizes_prices
+WHERE (sales.product_color_size = products_colors_sizes_prices.product_color_size) AND (sales.store = 90);
+
 -- Показать (упорядочено по номеру магазина) какой магазин(по номеру) в какой день по какому курсу делал закупку
 SELECT supplies.store, exchange_rates.`data`, exchange_rates.exchange_rate 
  FROM supplies
@@ -103,7 +108,7 @@ RETURNS FLOAT READS SQL DATA
     DECLARE ex_rate INT;
     
     SET price = 
-      (SELECT purchase_price 
+      (SELECT purchase_price_in_rub 
         FROM supplies
           WHERE id_supply = supply_id);
          
@@ -122,3 +127,5 @@ RETURNS FLOAT READS SQL DATA
 DELIMITER ;
 
 SELECT price_in_dollars(1);
+SELECT price_in_dollars(2);
+SELECT price_in_dollars(3);
