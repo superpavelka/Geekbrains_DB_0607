@@ -90,3 +90,35 @@ LIMIT 5;
 SELECT * FROM products_colors_sizes 
 ORDER BY id_product_color_size DESC
 LIMIT 5;
+
+-- Функция считает стоимость закупки в долларах по ее id 
+DROP FUNCTION IF EXISTS price_in_dollars;
+
+DELIMITER //
+CREATE FUNCTION price_in_dollars(supply_id INT)
+RETURNS FLOAT READS SQL DATA
+  BEGIN
+    DECLARE price INT;
+   	DECLARE ex_rate_id INT;
+    DECLARE ex_rate INT;
+    
+    SET price = 
+      (SELECT purchase_price 
+        FROM supplies
+          WHERE id_supply = supply_id);
+         
+    SET ex_rate_id = 
+      (SELECT exchange_rate 
+        FROM supplies
+          WHERE id_supply = supply_id);
+    
+    SET ex_rate = 
+      (SELECT exchange_rate 
+        FROM exchange_rates
+          WHERE id_exchange_rate = ex_rate_id);
+    
+    RETURN price / ex_rate;
+  END//
+DELIMITER ;
+
+SELECT price_in_dollars(1);
