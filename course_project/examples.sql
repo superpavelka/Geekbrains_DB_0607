@@ -48,4 +48,45 @@ WHERE products.id_product = products_colors_sizes.product) desc_color, colors
 WHERE desc_color.color = colors.id_color
 ORDER BY desc_color.id_product;
 
+-- Транзакция по добавлению позиции товара     
+START TRANSACTION;
 
+INSERT INTO products (product_type,product_group,manufacturer,description)
+  VALUES (9, 10, 13, 'new_collection 2019');
+
+SELECT @last_user_id := (SELECT MAX(id_product) FROM products);
+
+INSERT INTO products_colors_sizes (product,color,`size`)
+  VALUES (@last_user_id, 5, 3); 
+  
+COMMIT; 
+-- Смотрим таблицы products и products_colors_sizes упорядоченные по id_product и id_product_color_size
+-- в обратном порядке первые 5 записей и видим новую позицию
+SELECT * FROM products 
+ORDER BY id_product DESC
+LIMIT 5;
+
+SELECT * FROM products_colors_sizes 
+ORDER BY id_product_color_size DESC
+LIMIT 5;
+-- Транзакция по удалению позиции товара     
+START TRANSACTION;
+
+SELECT @last_product_id := (SELECT id_product FROM products WHERE description = 'new_collection 2019');
+
+DELETE FROM products_colors_sizes
+where product = @last_user_id;
+
+DELETE FROM products
+WHERE id_product = @last_user_id;
+
+COMMIT;
+-- Смотрим таблицы products и products_colors_sizes упорядоченные по id_product и id_product_color_size
+-- в обратном порядке первые 5 записей и видим что новая позиция удалена
+SELECT * FROM products 
+ORDER BY id_product DESC
+LIMIT 5;
+
+SELECT * FROM products_colors_sizes 
+ORDER BY id_product_color_size DESC
+LIMIT 5;
