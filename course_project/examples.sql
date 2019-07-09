@@ -1,7 +1,7 @@
 USE clothing_store;
 
 -- Показать сколько позиций товара было продано и сколько стоит одна позиция такого товара по номеру магазина
-SELECT sales.amount , products_colors_sizes_prices.price_in_rub
+SELECT sales.amount , products_colors_sizes_prices.price_in_rub, sales.amount*products_colors_sizes_prices.price_in_rub AS total_price
 FROM sales, products_colors_sizes_prices
 WHERE (sales.product_color_size = products_colors_sizes_prices.product_color_size) AND (sales.store = 90);
 
@@ -129,3 +129,19 @@ DELIMITER ;
 SELECT price_in_dollars(1);
 SELECT price_in_dollars(2);
 SELECT price_in_dollars(3);
+
+-- Триггер запрещающий добавлять NULL значения name или address в таблицу stores
+DROP TRIGGER IF EXISTS check_stores_insert;
+DELIMITER //
+
+CREATE TRIGGER check_stores_insert BEFORE INSERT ON stores
+FOR EACH ROW
+BEGIN
+  IF NEW.address IS NULL OR NEW.director_name IS NULL THEN
+ 	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Bad insertion.Address or name can`t be NULL';
+  END IF;
+END//
+
+DELIMITER ;
+-- Пример неправильной вставки значений, тут выскочит ошибка
+INSERT INTO stores (address,director_name) VALUES (NULL,NULL);
