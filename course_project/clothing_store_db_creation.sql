@@ -116,6 +116,14 @@ CREATE TABLE sales
   FOREIGN KEY (product_color_size) REFERENCES products_colors_sizes(id_product_color_size)
 );
 
+-- Примеры индексов
+
+CREATE INDEX sales_index 
+ON clothing_store.sales(id_sale);
+
+CREATE INDEX amount_index 
+ON clothing_store.sales(amount);
+
 -- Наполнение
 INSERT INTO product_types VALUES 
 (NULL,'pants and shorts'),
