@@ -1,9 +1,21 @@
 USE clothing_store;
 
--- Показать сколько позиций товара было продано и сколько стоит одна позиция такого товара по номеру магазина
+-- Показать сколько позиций товара было продано и сколько стоит одна позиция такого товара по номеру магазина + столбец с полной суммой покупки
 SELECT sales.amount , products_colors_sizes_prices.price_in_rub, sales.amount*products_colors_sizes_prices.price_in_rub AS total_price
 FROM sales, products_colors_sizes_prices
-WHERE (sales.product_color_size = products_colors_sizes_prices.product_color_size) AND (sales.store = 90);
+WHERE (sales.product_color_size = products_colors_sizes_prices.product_color_size) AND (sales.store = 64);
+
+-- Полная сумма покупок в магазине
+SELECT sales.amount , products_colors_sizes_prices.price_in_rub, SUM(sales.amount*products_colors_sizes_prices.price_in_rub) AS total_price
+FROM sales, products_colors_sizes_prices
+WHERE (sales.product_color_size = products_colors_sizes_prices.product_color_size) AND (sales.store = 64);
+
+-- Полная сумма покупок во всех магазинах
+SELECT sales.store AS store, sales.amount , products_colors_sizes_prices.price_in_rub, SUM(sales.amount*products_colors_sizes_prices.price_in_rub) AS total_price
+FROM sales, products_colors_sizes_prices
+WHERE (sales.product_color_size = products_colors_sizes_prices.product_color_size)
+GROUP BY sales.store
+ORDER BY store;
 
 -- Показать (упорядочено по номеру магазина) какой магазин(по номеру) в какой день по какому курсу делал закупку
 SELECT supplies.store, exchange_rates.`data`, exchange_rates.exchange_rate 
